@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Surprise 💖</title>
+
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    background: radial-gradient(circle, #ffd1dc, #ffb3c6);
+    color: #7a0026;
+    padding: 20px;
+    overflow-x: hidden;
+  }
+
+  .hidden { display: none; }
+
+  button {
+    padding: 14px 30px;
+    margin: 12px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: white;
+    box-shadow: 0 10px 25px rgba(255,77,109,0.5);
+    transition: 0.3s;
+  }
+
+  button:hover { transform: scale(1.1); }
+
+  .gifts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+  }
+
+  .gift-box {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .gift-box button {
+    font-size: 60px;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .gift-label {
+    margin-top: 8px;
+    font-weight: bold;
+    font-size: 16px;
+  }
+
+  iframe {
+    width: 300px;
+    height: 300px;
+    border-radius: 25px;
+    box-shadow: 0 0 30px rgba(255,105,180,0.6);
+  }
+
+  .text {
+    font-size: 20px;
+    margin: 25px;
+    white-space: pre-line;
+  }
+
+  /* Sparkles */
+  .sparkle {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background: radial-gradient(circle, #fff, #ffd1dc, #ffb3c6);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: sparkleMove 2s linear infinite;
+  }
+
+  @keyframes sparkleMove {
+    0% { transform: translate(0, 0) scale(1); opacity: 1; }
+    100% { transform: translate(var(--x), var(--y)) scale(0); opacity: 0; }
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+</style>
+</head>
+
+<body>
+
+<h1 id="title">Will you be my Valentine? 🥰</h1>
+
+<div id="step1">
+  <button onclick="nope()">No 😢</button>
+  <button onclick="yes()">Yes ❤️</button>
+</div>
+
+<div id="step2" class="hidden">
+  <h1>Ohhh you really said no? 🥺💔</h1>
+  <button onclick="yes()">Okay okay… YES ❤️</button>
+</div>
+
+<div id="giftsPage" class="hidden">
+  <h2>Choose your surprise 👀🎁</h2>
+  <div class="gifts">
+    <div class="gift-box">
+      <button onclick="gift(1)">🎁</button>
+      <div class="gift-label">Gift 1</div>
+    </div>
+    <div class="gift-box">
+      <button onclick="gift(2)">🎁</button>
+      <div class="gift-label">Gift 2</div>
+    </div>
+    <div class="gift-box">
+      <button onclick="gift(3)">🎁</button>
+      <div class="gift-label">Gift 3</div>
+    </div>
+    <div class="gift-box">
+      <button onclick="gift(4)">🎁</button>
+      <div class="gift-label">Gift 4</div>
+    </div>
+  </div>
+</div>
+
+<div id="giftContent" class="hidden">
+  <div id="giftMedia"></div>
+  <div class="text" id="giftText"></div>
+  <button onclick="next()">Next ➡️</button>
+</div>
+
+<div id="finalPage" class="hidden">
+  <div class="text">
+    <img src="https://s3.ezgif.com/tmp/ezgif-37ce29263cda20f9.gif" style="width:300px; height:300px; border-radius:25px; box-shadow: 0 0 30px rgba(255,105,180,0.6); margin-bottom: 20px;">
+    
+I loveeee youuu Soo muchhh mahh chashmishh
+
+this is a little gift from your fatuu I hope u like it🥹👀🌷
+  </div>
+</div>
+
+<script>
+let g = 1;
+
+function addSparkles(parent) {
+  for(let i=0;i<30;i++){
+    const sparkle = document.createElement('div');
+    sparkle.className = 'sparkle';
+    const x = (Math.random()*400-200) + 'px';
+    const y = (Math.random()*400-200) + 'px';
+    sparkle.style.setProperty('--x', x);
+    sparkle.style.setProperty('--y', y);
+    sparkle.style.top = Math.random()*100 + '%';
+    sparkle.style.left = Math.random()*100 + '%';
+    parent.appendChild(sparkle);
+    setTimeout(()=>parent.removeChild(sparkle), 2000);
+  }
+}
+
+function nope(){
+  step1.classList.add("hidden");
+  step2.classList.remove("hidden");
+}
+
+function yes(){
+  step1.classList.add("hidden");
+  step2.classList.add("hidden");
+  giftsPage.classList.remove("hidden");
+  addSparkles(document.body);
+}
+
+function gift(n){
+  g = n;
+  giftsPage.classList.add("hidden");
+  giftContent.classList.remove("hidden");
+  giftMedia.innerHTML = "";
+
+  if(n === 1){
+    giftMedia.innerHTML = `<img src="https://s3.ezgif.com/tmp/ezgif-3b73e278c0ee22dd.gif" style="width:300px; height:300px; border-radius:25px; box-shadow: 0 0 30px rgba(255,105,180,0.6);">`;
+    giftText.innerText =
+    "Heyyy mah bandar 🐒💖\n" +
+    "These roses are for you 🌹\n" +
+    "From your chipkali 🦎 hehehehe 👀💕\n" +
+    "Every petal has a little bit of my love in it 😌";
+  }
+
+  if(n === 2){
+    giftMedia.innerHTML = `<img src="https://s3.ezgif.com/tmp/ezgif-39fc3780a6d17cbf.gif" style="width:300px; height:300px; border-radius:25px; box-shadow: 0 0 30px rgba(255,105,180,0.6);">`;
+    giftText.innerText =
+    "Okay listen 🧸💗\n" +
+    "This teddy is officially YOU now.\n" +
+    "Whenever I’m not around,\n" +
+    "hug this and imagine it’s me being annoying and cute 😤💞";
+  }
+
+  if(n === 3){
+    giftMedia.innerHTML = `<img src="https://s3.ezgif.com/tmp/ezgif-30a80015113914ac.gif" style="width:300px; height:300px; border-radius:25px; box-shadow: 0 0 30px rgba(255,105,180,0.6);">`;
+    giftText.innerText =
+    "This is a tighttt hug just for you 🤗❤️\n" +
+    "For the days you miss me,\n" +
+    "for the nights you feel low,\n" +
+    "and for every moment you need comfort.\n" +
+    "I’m always with you, okay? 🫂💘";
+  }
+
+  if(n === 4){
+    giftText.innerText =
+`My dearest Hasnain ❤️
+
+I don’t think you truly realize
+how special you are to me.
+
+You are my comfort on hard days,
+my smile on normal days,
+and my happiness on the best days.
+
+With you, even silence feels warm.
+Even distance feels smaller.
+And even bad moments feel bearable
+because I know I have you.
+
+Thank you for loving me,
+for choosing me,
+and for staying.
+
+I may joke around,
+I may tease you,
+but my heart?
+It’s completely yours.
+
+Always has been.
+Always will be.
+
+Now come here 😤💞
+This chipkali loves her bandar a LOT.
+
+I love youuu Hasnain 💖🐒🦎`;
+  }
+}
+
+function next(){
+  giftContent.classList.add("hidden");
+  if(g < 4){
+    giftsPage.classList.remove("hidden");
+    addSparkles(document.body);
+  } else {
+    finalPage.classList.remove("hidden");
+    addSparkles(document.body);
+  }
+}
+</script>
+
+</body>
+</html>
